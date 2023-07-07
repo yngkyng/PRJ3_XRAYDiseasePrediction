@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/css/info.css" rel="stylesheet">
+<style>
+.page-header {
+ text-align:center;
+ vertical-align: center;
+
+}
+
+.page-footer {
+ background-color:white;
+ color:gray;
+ fontsize: 0.5em;
+ text-weight:300;
+ padding:20px;
+ height:100px;
+ text-align:right;
+}
+a {text-decoration: none;}
+
+/* div{
+    border: #293040 solid 1px;
+} */
+html {
+    font-size: 12px;
+    color: #293040;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    padding:10px;
+    margin:10px;
+}
+
+body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+.shadow{
+    box-shadow: 3px 3px 3px 3px lightgray;
+}
+
+.header{
+    height: 40px;
+    background-color: #293040;
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: aliceblue;
+    font-weight: 600;
+    font-size:1.7em;
+    padding: 10px;
+    text-align: left; /* 텍스트를 왼쪽 상단으로 정렬 */
+    vertical-align: top; /* 텍스트를 상단에 붙임 */
+}
+
+/* 왼쪽 박스 */
+.div1 {
+float:left;
+width:49%;
+}
+.img-div{
+/* border: 1px solid black; */
+padding: 10px;
+margin: 10px 0;
+}
+.img{
+    margin: 0;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+img{
+    margin: 20px;
+}
+
+
+/* 오른쪽 박스 */
+.div2 {
+float:right;
+width:50%;
+}
+
+.div3 {
+/* border: 1px solid black; */
+padding: 10px;
+margin: 10px 0;
+}
+
+.info-total{
+    padding: 15px;
+    height: 200px;
+}
+
+.info1{
+    float:left;
+    width:43%;
+    margin: 10px 20px;
+}
+.info2{
+    float:right;
+    width:45%;
+    margin: 10px 0;
+    padding: 0 10px;
+}
+
+.info-label{
+    height:35px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    grid-gap: 0px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.label{
+    font-weight: 800;
+}
+
+.info-box {
+    width:50px;
+    height: 50%;
+    margin-left: 10px;
+    align-items:end;
+    border:none;
+    /* border: 1px solid #E2BC97; */
+}
+.memo-container{
+    padding: 10px;
+    height: 100px;
+    width: 80%;
+    color: gray;
+    border: 1px solid gray;
+    color: gray;
+    background-color:white;
+}
+
+
+.div4 {
+    clear: both;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    padding: 10px;
+    }
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#293040;
+    border-radius: 0.5rem;
+    height:30px;
+    padding: 10px;
+    color:whitesmoke;
+    text-align: center;
+    font-weight: 700;
+    font-size:1.5em;
+}
+.button:hover{
+    color:whitesmoke;
+    background-color:#E2BC97;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="page-header">
+    <h3>Medical Records</h3>
+  </div>
+
+  <div class="body">
+    <div class="div1">
+      <div class='img-div '>
+      <div class="header">X-ray Image</div>
+      <div class="img shadow">
+        {% load static %}
+        {% static "" as baseUrl %}
+        <img src="{{baseUrl}}images/{{pat.picture_url}}" alt="X-ray-Image" width="300px" height="300px" >
+      </div>
+      </div>
+    </div>
+
+    <div class="div2">
+      <div class="div3">
+        <div class="header">{{pat.name}}</div>
+        <div class="info-total shadow">
+          <div class="info1">
+            <div class="info-label">
+                <p class="label">나이</p>
+                <input class='info-box' name="age" value="{{pat.age}}">
+            </div>
+
+            <div class="info-label">
+                <p class="label">키</p>
+                <input class='info-box' name="height" value="{{pat.height}}">
+            </div>
+
+            <div class="info-label">
+                <p class="label">몸무게</p>
+                <input class='info-box' name="weight" value="{{pat.weight}}">
+            </div>
+
+            <div class="info-label">
+                <p class="label">혈액형</p>
+                <input class='info-box' name="blood_type" value="{{pat.blood_type}}">
+            </div>
+
+            <div class="info-label">
+                <p class="label">최근방문</p>
+                <input class='info-box' name="last_visit" value="{{pat.last_visit}}">
+            </div>
+          </div>
+          <div class="info2">
+            <p class="label">메모</p>
+            <div id='cell'>
+                <textarea name="memo" class='memo-container' id='cellText'>{{pat.memo}}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="div4">
+        <a href="/mymember/Total?idx={{pat.idx}}"class="button" style="grid-row: span 4; height:195px;"> Overall </a>
+        <a href="/mymember/Atelectasis?idx={{pat.idx}}" class="button" >Atelectasis</a>
+        <a href="/mymember/Cardiomegaly?idx={{pat.idx}}" class="button">Cardiomegaly</a>
+        <a href="/mymember/Edema?idx={{pat.idx}}" class="button">Edema</a>
+        <a href="/mymember/Effusion2?idx={{pat.idx}}" class="button">Effusion</a>
+        <a href="/mymember/Fibrosis?idx={{pat.idx}}" class="button">Fibrosis</a>
+        <a href="/mymember/Pneumonia?idx={{pat.idx}}" class="button">Pneumonia</a>
+        <a href="/mymember/Pneumothorax?idx={{pat.idx}}" class="button">Pneumothorax</a>
+        <a href="/mymember/Tuberculosis?idx={{pat.idx}}" class="button">Tuberculosis</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <hr>
+    서울시 강남구 도산대로 197, 파라머스빌딩 301,302호 연세서울병원
+    <br>tel)02.2569.8915&nbsp;&nbsp;fax)02.2569.8916&nbsp;&nbsp;e-mail)thdcksdml980@naver.com
+    <br>2023 copyright ©yngkyng
+  </div>
+</div>
+</body>
+</html>

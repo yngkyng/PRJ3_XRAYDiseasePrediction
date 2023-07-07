@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="http://code.jquery.com/jquery-3.6.4.js"></script>
+<script>
+$(function(){
+$("#btnHome").click(function(){
+location.href="/";
+});
+$("#btnAdd").click(function(){
+location.href="/mymember/join";
+});
+});
+</script>
+</head>
+<body>
+<h2>개인 정보</h2>
+<a href="/mymember">이전</a>
+<a href="detail?userid={{item.userid}}">수정</a>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>이름</th>
+    <th>전화</th>
+    <th>이메일</th>
+    <th>주소</th>
+  </tr>
+  <tr>
+    <td>{{item.userid}}</td>
+    <td>{{item.name}}</td>
+    <td>{{item.tel}}</td>
+    <td>{{item.email}}</td>
+    <td>{{item.address}}</td>
+  </tr>
+</table>
+</body>
+</html>

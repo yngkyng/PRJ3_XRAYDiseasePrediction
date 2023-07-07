@@ -1,0 +1,44 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ko">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>{{request.session.name}}님 환영합니다.</h2>-->
+<!--  <a href="/mypatient">환자 list</a>-->
+<!--  <a href="/mymember/custlist">회원 정보</a>-->
+<!--  <a href="/mymember/logout">로그아웃</a>-->
+<!--&lt;!&ndash;  <a href="/mymember/Atelectasis">Atelectasis_test</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="/mymember/Cardiomegaly">Cardiomegaly_test</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="/mymember/Edema">Edema_test</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="/mymember/Effusion2">Effusion_test</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="/mymember/Fibrosis">Fibrosis_test</a>&ndash;&gt;-->
+<!--&lt;!&ndash;  &lt;!&ndash;<a href="/mymember/Pneumothorax">Pneumothorax_test</a>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;  <a href="/mymember/Tuberculosis">Tuberculosis_test</a>&ndash;&gt;-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/css/pre-main.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="modal">
+        <div class="content">
+            <h2><a class="name">{{request.session.name}}</a>님</h2>
+            <h2>환영합니다</h2>
+            <a></a>
+            <div class="btn-container">
+                <a href="/mypatient" class="button" style="grid-row: span 2;height:275px;">환자 list</a>
+                <a href="/mymember/custlist" class="button">회원 정보</a>
+                <a href="/mymember/logout" class="button">로그아웃</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

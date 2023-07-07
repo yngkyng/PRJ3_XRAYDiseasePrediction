@@ -1,0 +1,38 @@
+<!--환자 정보 불러올때 꾸미는곳입니다.-->
+<div class="info1">
+    <div class="info-label">
+        <p>이름</p>
+        <input class='info-box' name="name" value="{{pat.name}}">
+    </div>
+    <div class="info-label">
+        <p>나이</p>
+        <input class='info-box' name="age" value="{{pat.age}}">
+    </div>
+<div class="info-label">
+        <p>키</p>
+        <input class='info-box' name="height" value="{{pat.height}}">
+    </div>
+    <div class="info-label">
+        <p>몸무게</p>
+        <input class='info-box' name="weight" value="{{pat.weight}}">
+    </div>
+    <div class="info-label">
+        <p>혈액형</p>
+        <input class='info-box' name="blood_type" value="{{pat.blood_type}}">
+    </div>
+    <div class="info-label">
+        <p>최근방문</p>
+        <input class='info-box' name="last_visit" value="{{pat.last_visit}}">
+    </div>
+    <div class="info-label">
+        <p>image</p>
+        <input class='info-box' name="image" value="{{pat.picture_url}}">
+    </div>
+</div>
+<div class="info2">
+        <p>메모</p>
+        <div id='cell'>
+<!--            <input name="memo" class='memo-container' id='cellText' value="{{pat.memo}}">-->
+            <textarea name="memo" class='memo-container' id='cellText'>{{pat.memo}}</textarea>
+        </div>
+</div>

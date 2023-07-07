@@ -1,0 +1,507 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <link href="/static/css/main-등록.css" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--  <div class="page-header">-->
+<!--    <h3>Medical Records</h3>-->
+<!--  </div>-->
+
+<!--  <div class="body" onload="adjustSize()" onresize="adjustSize()">-->
+<!--    <div class="container">-->
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <th colspan="2" class="header">환자 검색</th> &lt;!&ndash; A1~B1 &ndash;&gt;-->
+<!--          <th colspan="5" class="header">환자 정보</th> &lt;!&ndash; C1~G1 &ndash;&gt;-->
+<!--          <th></th>-->
+<!--          <th></th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <div class="search-box">-->
+<!--            <td colspan="2" rowspan="6" class="shadow search-td">-->
+<!--              <div class="search-container">-->
+<!--                <input type="text" id="searchInput" placeholder="이름을 입력하세요" style='width:65%;'>-->
+<!--                <button onclick="search()" class="search-btn"> → </button>-->
+<!--              </div>-->
+<!--              <div id="searchResultContainer"></div> &lt;!&ndash; 검색 결과를 표시할 위치 &ndash;&gt;-->
+<!--            </td> &lt;!&ndash; A2~B2 &ndash;&gt;-->
+<!--          </div>-->
+
+<!--          <div class="info">-->
+<!--            <td colspan="5" rowspan="6" class="shadow info-td">-->
+<!--              <div style="padding: 0 10px;">-->
+<!--                <form method="post" enctype="multipart/form-data">-->
+<!--    {% csrf_token %}-->
+<!--    <table>-->
+<!--    <tr>-->
+<!--        <td>Name</td>-->
+<!--        <td><input name="name"></td>-->
+<!--    </tr>-->
+<!--        <tr>-->
+<!--        <td>Age</td>-->
+<!--        <td><input name="age"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Height</td>-->
+<!--        <td><input name="height"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Weight</td>-->
+<!--        <td><input name="weight"></td>-->
+<!--    </tr>-->
+<!--        <tr>-->
+<!--        <td>Blood Type</td>-->
+<!--        <td><input name="blood_type"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Last Visit</td>-->
+<!--        <td><input name="last_visit"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Memo</td>-->
+<!--        <td><input name="memo"></td>-->
+<!--    </tr>-->
+<!--        <tr>-->
+<!--        <td>xray 이미지</td>-->
+<!--        <td><input type="file" name="file1"></td>-->
+<!--</tr>-->
+<!--    <tr>-->
+<!--        <td colspan="2">-->
+<!--            <input type="submit" value="등록">-->
+<!--            <input type="button" value="환자 list"-->
+<!--        onclick="location.href='/mypatient'"-->
+<!--    </tr>-->
+<!--    </table>-->
+<!--    </form>-->
+<!--          <td colspan="2"> &lt;!&ndash; H2~I5 &ndash;&gt;-->
+<!--            <div class='bigBtn jubsu' onclick="sendDataToServer()">접수</div>-->
+<!--                          &lt;!&ndash;  onklick 말고 xray 페이지로 넘어가는 링크거는걸로 바꿔야됨 &ndash;&gt;-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td colspan="2">-->
+<!--            <div class='bigBtn deunglok' onclick="sendDataToServer()">신규등록</div>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="page-footer">-->
+<!--    <h3>footer</h3>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<script>-->
+<!--  //검색창 기능//-->
+<!--  function search() {-->
+<!--    var keyword = document.getElementById('searchInput').value;-->
+<!--    alert('검색어: ' + keyword);-->
+
+<!--    // 검색 결과를 표시할 요소 생성-->
+<!--    var searchResult = document.createElement('p');-->
+<!--    searchResult.textContent = '검색 결과: ' + keyword;-->
+
+<!--    // 결과를 표시할 위치에 요소 추가-->
+<!--    var resultContainer = document.getElementById('searchResultContainer');-->
+<!--    resultContainer.appendChild(searchResult);-->
+<!--  }-->
+
+
+<!--  //메모창 사이즈 조절//-->
+<!--  function adjustSize() {-->
+<!--    var cellWidth = document.getElementById('cell').offsetWidth;-->
+<!--    var cellHeight = document.getElementById('cell').offsetHeight;-->
+<!--    var cellTextarea = document.getElementById('cellText');-->
+
+<!--    cellTextarea.style.width = cellWidth + 'px';-->
+<!--    cellTextarea.style.height = cellHeight + 'px';-->
+<!--  }-->
+
+
+<!--  //신규 등록 누르면 DB로 정보 넘기기//-->
+<!--  function sendDataToServer() {-->
+<!--    // 서버로 전송할 데이터를 가져오는 로직을 작성하세요.-->
+<!--    var data = {-->
+<!--      // 데이터 예시-->
+<!--      name: document.getElementById('name').value,-->
+<!--      age: document.getElementById('age').value,-->
+<!--      // 추가 데이터-->
+<!--      // ...-->
+<!--    };-->
+
+<!--    // AJAX 요청을 보냅니다.-->
+<!--    var xhr = new XMLHttpRequest();-->
+<!--    xhr.open('POST', '/save-data', true);-->
+<!--    xhr.setRequestHeader('Content-Type', 'application/json');-->
+<!--    xhr.onreadystatechange = function () {-->
+<!--      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {-->
+<!--        // 응답 처리 로직을 작성하세요.-->
+<!--        console.log('Data sent successfully.');-->
+<!--      }-->
+<!--    };-->
+<!--    xhr.send(JSON.stringify(data));-->
+<!--  }-->
+<!--</script>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link href="/static/css/main-등록.css" rel="stylesheet">-->
+<style>
+.page-header {
+ text-align:center;
+ vertical-align: center;
+
+}
+
+.page-footer {
+ background-color:white;
+ color:gray;
+ fontsize: 0.5em;
+ text-weight:300;
+ padding:20px;
+ height:100px;
+ text-align:right;
+}
+    html {
+    font-size: 12px;
+    color: #293040;
+}
+
+body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    /* font-family: $font-stack;
+    color: #0c0a3d; */
+}
+
+.container{
+    padding:10px;
+    margin:10px;
+}
+
+table {
+    background-color:white ;
+    table-layout: fixed;
+    width: 100%;
+    /* border-collapse: collapse; */
+    border-collapse: separate;
+    border-spacing: 10px 0;
+}
+
+th, td {
+    padding: 10px;
+    margin: 10px;
+    text-align: left; /* 텍스트를 왼쪽 상단으로 정렬 */
+    vertical-align: top; /* 텍스트를 상단에 붙임 */
+}
+
+.shadow{
+    box-shadow: 3px 3px 3px 3px lightgray;
+}
+
+
+.header{
+    height: 40px;
+    background-color: #293040;
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: aliceblue;
+    font-size:1.5em;
+
+
+}
+
+
+/* 환자 검색 */
+.search-td{
+    background-color:rgb(250, 250, 250);
+}
+.search-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+}
+
+.search-container input[type="text"] {
+    margin-right: 5px;
+    padding: 4px;
+    border: 2px solid lightgray;
+}
+
+.search-btn {
+    background-color: lightgray;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#searchResultContainer{
+    margin: 10px 1px;
+    border: 1px solid lightgray;
+    border-radius: 0.5rem;
+    background-color:white;
+    padding: 10px;
+    height: 300px;
+    color: gray;
+}
+
+
+/* 환자 정보 */
+.info-td{
+    background-color:antiquewhite;
+}
+
+.info1{
+    float:left;
+    width:47%;
+
+}
+.info2{
+    float:right;
+    width:48%;
+    padding: 0 10px;
+}
+
+.info-label{
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.5fr;
+    grid-gap: 10px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.info-box {
+    width:100px;
+    height: 50%;
+    margin-left: 10px;
+    align-items:end;
+    border: 1px solid #E2BC97;
+}
+
+p{
+    font-weight: 800;
+}
+
+.image-select::-webkit-file-upload-button{
+    width:100px;
+    background-color:white;
+    border-radius: 0.5rem;
+    border: 1px solid #E2BC97;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+}
+
+.cell{
+    width: 80%;
+    min-height: 100px;
+    overflow-y: auto; /* 세로 스크롤을 허용 */
+}
+
+.memo-container{
+    margin: 0;
+    border: 1px solid #E2BC97;
+    padding: 10px;
+    height: 200px;
+    width: 80%;
+    color: gray;
+    border-radius: 0.5rem;
+    background-color:white;
+}
+
+
+/* 버튼 */
+.deunglok{
+    margin:30px 28px;
+    float:right;
+}
+.bigBtn{
+    padding:10px;
+    color:whitesmoke;
+    background-color:#293040;
+    border-radius: 0.5rem;
+    border: none;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bigBtn:hover{
+    cursor:pointer;
+    color:whitesmoke;
+    background-color:#E2BC97;
+    border-radius: 0.5rem;
+    border: none;
+    text-align: center;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.jubsu {
+    visibility: hidden;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-header">
+    <h3>Medical Records</h3>
+  </div>
+
+  <div class="body" onload="adjustSize()" onresize="adjustSize()">
+    <div class="container">
+      <table>
+        <tr>
+          <th colspan="2" class="header">환자 검색</th> <!-- A1~B1 -->
+          <th colspan="5" class="header">환자 정보</th> <!-- C1~G1 -->
+          <th></th>
+          <th></th>
+        </tr>
+
+        <tr>
+          <div class="search-box">
+            <td colspan="2" rowspan="6" class="shadow search-td">
+              <div class="search-container">
+                <input type="text" id="searchInput" placeholder="이름을 입력하세요" style='width:65%;'>
+                <button onclick="search()" class="search-btn"> → </button>
+              </div>
+              <div id="searchResultContainer"></div> <!-- 검색 결과를 표시할 위치 -->
+            </td> <!-- A2~B2 -->
+          </div>
+
+          <div class="info">
+            <td colspan="5" rowspan="6" class="shadow info-td">
+              <div style="padding: 0 10px;">
+                <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="info1">
+                    <div class="info-label">
+                        <p>이름</p>
+                        <input class='info-box' name="name">
+                    </div>
+                    <div class="info-label">
+                        <p>나이</p>
+                        <input class='info-box' name="age">
+                    </div>
+                    <div class="info-label">
+                        <p>키</p>
+                        <input class='info-box' name="height">
+                    </div>
+                    <div class="info-label">
+                        <p>몸무게</p>
+                        <input class='info-box' name="weight">
+                    </div>
+                    <div class="info-label">
+                        <p>혈액형</p>
+                        <input class='info-box' name="blood_type">
+                    </div>
+                    <div class="info-label">
+                        <p>최근방문</p>
+                        <input class='info-box' name="last_visit">
+                    </div>
+                    <div class="info-label">
+                        <p>image</p>
+                        <div class='info-box' style="border:none;"><input class='image-select' type="file" name="file1"></div>
+                    </div>
+                </div>
+                <div class="info2">
+                    <p>메모</p>
+                    <div id='cell'>
+                        <textarea name="memo" class='memo-container' id='cellText'>{{pat.memo}}</textarea>
+                    </div>
+                    <div class="deunglok">
+                    <input class='bigBtn' type="submit" value="등록">
+                    </div>
+                </div>
+                </form>
+              </div>
+            </td>
+          </div>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+ <div class="page-footer">
+    <hr>
+    서울시 강남구 도산대로 197, 파라머스빌딩 301,302호 연세서울병원
+    <br>tel)02.2569.8915&nbsp;&nbsp;fax)02.2569.8916&nbsp;&nbsp;e-mail)thdcksdml980@naver.com
+    <br>2023 copyright ©yngkyng
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+  //검색창 기능//
+  function search() {
+    var keyword = document.getElementById('searchInput').value;
+    alert('검색어: ' + keyword);
+
+    // 검색 결과를 표시할 요소 생성
+    var searchResult = document.createElement('p');
+    searchResult.textContent = '검색 결과: ' + keyword;
+
+    // 결과를 표시할 위치에 요소 추가
+    var resultContainer = document.getElementById('searchResultContainer');
+    resultContainer.appendChild(searchResult);
+  }
+
+
+  //메모창 사이즈 조절//
+  function adjustSize() {
+    var cellWidth = document.getElementById('cell').offsetWidth;
+    var cellHeight = document.getElementById('cell').offsetHeight;
+    var cellTextarea = document.getElementById('cellText');
+
+    cellTextarea.style.width = cellWidth + 'px';
+    cellTextarea.style.height = cellHeight + 'px';
+  }
+
+
+  //신규 등록 누르면 DB로 정보 넘기기//
+  function submitForm() {
+    // 폼 제출 동작 수행
+    // 폼 요소 가져오기
+    var form = document.getElementById("myForm");
+    // 폼 제출
+    form.submit();
+    // 페이지 이동
+    window.location.href = "/mypatient";
+  }
+
+    // AJAX 요청을 보냅니다.
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/save-data', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        // 응답 처리 로직을 작성하세요.
+        console.log('Data sent successfully.');
+      }
+    };
+    xhr.send(JSON.stringify(data));
+  }
+</script>

@@ -1,0 +1,163 @@
+html {
+    font-size: 12px;
+    color: #293040;
+}
+
+body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    /* font-family: $font-stack;
+    color: #0c0a3d; */
+}
+
+.container{
+    padding:10px;
+    margin:10px;
+}
+
+table {
+    background-color:white ;
+    table-layout: fixed;
+    width: 100%;
+    /* border-collapse: collapse; */
+    border-collapse: separate;
+    border-spacing: 10px 0;
+}
+
+th, td {
+    padding: 10px;
+    margin: 10px;
+    text-align: left; /* 텍스트를 왼쪽 상단으로 정렬 */
+    vertical-align: top; /* 텍스트를 상단에 붙임 */
+}
+
+.shadow{
+    box-shadow: 3px 3px 3px 3px lightgray;
+}
+
+
+.header{
+    height: 40px;
+    background-color: #293040;
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: aliceblue;
+    font-size:1.5em;
+
+
+}
+
+
+/* 환자 검색 */
+.search-td{
+    background-color:antiquewhite;
+}
+.search-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    
+}
+
+.search-container input[type="text"] {
+    margin-right: 5px;
+    padding: 4px;
+    border: 2px solid #E2BC97;
+}
+
+.search-btn {
+    background-color: #E2BC97;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#searchResultContainer{
+    margin: 10px 1px;
+    border: 1px solid #E2BC97;
+    border-radius: 0.5rem;
+    background-color:white;
+    padding: 10px;
+    height: 300px;
+    color: gray;
+}
+.search-infos{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    grid-gap: 1px;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+/* 환자 정보 */
+.info-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 5fr;
+    grid-gap: 10px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.info-get{
+    color: black;
+}
+
+.info-box {
+    width:100px;
+    height: 50%;
+    margin-left: 10px;
+    align-items:end;
+    border: 1px solid #E2BC97;
+}
+
+p{
+    font-weight: 800;
+}
+
+.cell{
+    width: 80%; /* 메모 창의 너비를 100%로 설정 */
+}
+
+.memo-container{
+    margin: 5px 0;
+    border: 1px solid #E2BC97;
+    padding: 10px;
+    min-height: 100px;
+    color: gray;
+    background-color:white;
+}
+
+
+/* 버튼 */
+.bigBtn{
+    color:whitesmoke;
+    background-color:#293040;
+    border-radius: 0.5rem;
+    height:200px;
+    text-align: center;
+    font-weight: 700;
+    font-size:1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.bigBtn:hover{
+    color:whitesmoke;
+    background-color:#E2BC97;
+    border-radius: 0.5rem;
+    height:200px;
+    text-align: center;
+    font-weight: 700;
+    font-size:1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}

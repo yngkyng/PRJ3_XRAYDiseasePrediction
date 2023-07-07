@@ -1,0 +1,553 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--    <link href="/static/css/main.css" rel="stylesheet">-->
+<!--    <script src="http://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+<!--    <style>-->
+<!--    .search-infos{-->
+<!--    cursor: pointer;-->
+<!--    display: grid;-->
+<!--    grid-template-columns: 1fr 3fr 2fr;-->
+<!--    grid-gap: 1px;-->
+<!--    align-items: center;-->
+<!--    flex-direction: row;-->
+<!--    }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--  <div class="page-header">-->
+<!--    <h3>Medical Records</h3>-->
+<!--  </div>-->
+
+<!--  <div class="body" onload="adjustSize()" onresize="adjustSize()">-->
+<!--    <div class="container">-->
+<!--      <table>-->
+<!--        <tr>-->
+<!--          <th colspan="2" class="header">환자 검색</th> &lt;!&ndash; A1~B1 &ndash;&gt;-->
+<!--          <th colspan="5" class="header">환자 정보</th> &lt;!&ndash; C1~G1 &ndash;&gt;-->
+<!--          <th></th>-->
+<!--          <th></th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <div class="search-box">-->
+<!--            <td colspan="2" rowspan="6" class="shadow search-td">-->
+<!--              <div class="search-container">-->
+<!--                 <form method="post">-->
+<!--                  {% csrf_token %}-->
+<!--                  <input type="text" id="searchInput" style='width:65%;' placeholder="이름을 입력하세요" name="patient_name">-->
+<!--                  <button onclick="search()" class="search-btn" style='font-size: 10px; padding:8px' >✔</button>-->
+<!--                </form>-->
+<!--              </div>-->
+<!--              <div id="searchResultContainer">-->
+<!--                  {% for row in items %}-->
+<!--                  <div class='search-infos' onclick="showPatientInfo('{{row.idx}}')">-->
+<!--                    <div>{{row.idx}}</div>-->
+<!--                    <div>{{row.name}}</div>-->
+<!--                    <div>{{row.age}}</div>-->
+<!--                  </div>-->
+<!--                  {% endfor %}-->
+<!--              </div> &lt;!&ndash; 검색 결과를 표시할 위치 &ndash;&gt;-->
+
+<!--            </td> &lt;!&ndash; A2~B2 &ndash;&gt;-->
+<!--          </div>-->
+
+<!--          <div class="info">-->
+<!--            <td colspan="5" rowspan="6" class="shadow">-->
+
+<!--          <div style="padding: 0 10px;">-->
+
+<!--                <div class="info-container"></div>-->
+<!--                <div id='cell' style="padding: 0 10px;">-->
+<!--                <div><p>메모</p></div>-->
+<!--                <div class="memo-container" id='cellText' contentEditable="true"></div>-->
+<!--              </div>-->
+<!--            </td>-->
+<!--          </div>-->
+<!--          <td colspan="2"> &lt;!&ndash; H2~I5 &ndash;&gt;-->
+<!--            <a class='bigBtn' onclick="sendDataToServer()">접수</a>-->
+<!--                          &lt;!&ndash;  onklick 말고 xray 페이지로 넘어가는 링크거는걸로 바꿔야됨 &ndash;&gt;-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td colspan="2">-->
+<!--            <a href = 'register/' class='bigBtn' onclick="sendDataToServer()">신규등록</a>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--<div id="infoContainer">-->
+<!--</div>-->
+<!--  <div class="page-footer">-->
+<!--    <h3>footer</h3>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<script>-->
+<!--  //검색창 기능//-->
+<!--  function search() {-->
+<!--    var keyword = document.getElementById('searchInput').value;-->
+
+<!--    // 검색 결과를 표시할 요소 생성-->
+<!--    var searchResult = document.createElement('p');-->
+<!--    searchResult.textContent = '검색 결과: ' + keyword;-->
+
+<!--    // 결과를 표시할 위치에 요소 추가-->
+<!--    var resultContainer = document.getElementById('searchResultContainer');-->
+<!--    resultContainer.appendChild(searchResult);-->
+<!--  }-->
+
+
+<!--  //메모창 사이즈 조절//-->
+<!--  function adjustSize() {-->
+<!--    var cellWidth = document.getElementById('cell').offsetWidth;-->
+<!--    var cellHeight = document.getElementById('cell').offsetHeight;-->
+<!--    var cellTextarea = document.getElementById('cellText');-->
+
+<!--    cellTextarea.style.width = cellWidth + 'px';-->
+<!--    cellTextarea.style.height = cellHeight + 'px';-->
+<!--  }-->
+
+
+<!--  // 항목 클릭 이벤트 처리//-->
+<!--  var a-->
+<!--  function showPatientInfo(idx) {-->
+<!--    a = idx; // 변수에 값 할당-->
+<!--    document.cookie = "a=" + a;-->
+<!--    $.ajax({-->
+<!--        "url": 'patient_info?idx='+ idx,-->
+<!--        "success":function(res){-->
+<!--            console.log(res);-->
+<!--            $(".info-container").html(res);-->
+<!--            //console.log('success');-->
+<!--        }-->
+<!--    });-->
+
+
+<!--    // AJAX 요청 예시-->
+<!--    /*-->
+<!--    var xhr = new XMLHttpRequest();-->
+<!--    xhr.onreadystatechange = function() {-->
+<!--      if (xhr.readyState === XMLHttpRequest.DONE) {-->
+<!--        if (xhr.status === 200) {-->
+<!--          var patientInfo = JSON.parse(xhr.responseText);-->
+<!--            console.log('patient:'+patientInfo);-->
+<!--          // 정보 출력을 위한 HTML 문자열 생성-->
+<!--          var infoHTML = `-->
+<!--            <div class="info-container">-->
+<!--               <p>나이</p>-->
+<!--               <p>${patient.name}</p>-->
+<!--            </div>-->
+<!--            <div class="info-container">-->
+<!--               <p>나이</p>-->
+<!--               <p>${patient.age}</p>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; 추가 정보를 여기에 추가할 수 있습니다. &ndash;&gt;-->
+<!--          `;-->
+
+<!--          // 정보를 출력할 요소에 HTML 문자열 삽입-->
+<!--          var infoContainer = document.getElementById('infoContainer');-->
+<!--          infoContainer.innerHTML = infoHTML;-->
+<!--        } else {-->
+<!--          alert('Failed to fetch patient information');-->
+<!--        }-->
+<!--      }-->
+<!--    };-->
+
+<!--    // 서버로 요청을 보내는 URL 설정-->
+<!--    var url = '/?idx='+ idx; // 서버의 API 엔드포인트에 맞게 URL 수정 필요-->
+<!--    xhr.open('GET', url);-->
+<!--    xhr.send();-->
+<!--      */-->
+<!--  }-->
+
+<!--  var idx = 1;  // 가져올 환자의 고유한 식별자-->
+<!--  showPatientInfo(idx);-->
+
+<!--  //신규 등록 누르면 DB로 정보 넘기기//-->
+<!--  console.log(a)-->
+<!--  function sendDataToServer() {-->
+<!--    location.href="receipt?idx="+a;-->
+
+
+<!--  }-->
+<!--</script>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link href="/static/css/main.css" rel="stylesheet">-->
+    <script src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style>
+.page-header {
+ text-align:center;
+ vertical-align: center;
+
+}
+
+.page-footer {
+ background-color:white;
+ color:gray;
+ fontsize: 0.5em;
+ text-weight:300;
+ padding:20px;
+ height:100px;
+ text-align:right;
+}
+  html {
+    font-size: 12px;
+    color: #293040;
+}
+
+a{
+  text-decoration:none;
+}
+
+body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    /* font-family: $font-stack;
+    color: #0c0a3d; */
+}
+
+.container{
+    padding:10px;
+    margin:10px;
+}
+
+table {
+    background-color:white ;
+    table-layout: fixed;
+    width: 100%;
+    /* border-collapse: collapse; */
+    border-collapse: separate;
+    border-spacing: 10px 0;
+}
+
+th, td {
+    padding: 10px;
+    margin: 10px;
+    text-align: left; /* 텍스트를 왼쪽 상단으로 정렬 */
+    vertical-align: top; /* 텍스트를 상단에 붙임 */
+}
+
+.shadow{
+    box-shadow: 3px 3px 3px 3px lightgray;
+}
+
+
+.header{
+    height: 40px;
+    background-color: #293040;
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: aliceblue;
+    font-size:1.5em;
+}
+
+
+/* 환자 검색 */
+.search-td{
+    background-color:antiquewhite;
+}
+.search-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.search-container input[type="text"] {
+    margin-right: 5px;
+    padding: 4px;
+    border: 2px solid #E2BC97;
+}
+
+.search-btn {
+    background-color: #E2BC97;
+    font-weight: 700;
+    border-radius: 0.5rem;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+#searchResultContainer{
+    margin: 10px 1px;
+    border: 1px solid #E2BC97;
+    border-radius: 0.5rem;
+    background-color:white;
+    padding: 10px;
+    height: 300px;
+    color: gray;
+}
+
+.search-info{
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr;
+    grid-gap: 1px;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+/* 환자 정보 */
+.info1{
+    float:left;
+    width:47%;
+
+}
+.info2{
+    float:right;
+    width:48%;
+    padding: 0 10px;
+}
+.info-label{
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.5fr;
+    grid-gap: 10px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.info-get{
+    color: black;
+}
+
+.info-box {
+    width:100px;
+    height: 50%;
+    margin-left: 10px;
+    align-items:end;
+    border:none;
+    /* border: 1px solid #E2BC97; */
+}
+
+p{
+    font-weight: 800;
+}
+
+.cell{
+    width: 80%;
+    min-height: 100px;
+    overflow-y: auto; /* 세로 스크롤을 허용 */
+}
+
+.memo-container{
+    margin: 0;
+    border: 1px solid gray;
+    padding: 10px;
+    height: 200px;
+    width: 80%;
+    color: gray;
+    border-radius: 0.5rem;
+    background-color:white;
+}
+
+
+/* 버튼 */
+.bigBtn{
+    color:whitesmoke;
+    background-color:#293040;
+    border-radius: 0.5rem;
+    height:200px;
+    text-align: center;
+    font-weight: 700;
+    font-size:1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.bigBtn:hover{
+    color:whitesmoke;
+    background-color:#E2BC97;
+    border-radius: 0.5rem;
+    height:200px;
+    text-align: center;
+    font-weight: 700;
+    font-size:1.6em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+</style>
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="page-header">
+    <h3>Medical Records</h3>
+  </div>
+
+  <div class="body" onload="adjustSize()" onresize="adjustSize()">
+    <div class="container">
+      <table>
+        <tr>
+          <th colspan="2" class="header">환자 검색</th> <!-- A1~B1 -->
+          <th colspan="5" class="header">환자 정보</th> <!-- C1~G1 -->
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <div class="search-box">
+            <td colspan="2" rowspan="6" class="shadow search-td">
+              <div class="search-container">
+                 <form method="post">
+                  {% csrf_token %}
+                  <input type="text" id="searchInput" style='width:65%;' placeholder="이름을 입력하세요" name="patient_name">
+                  <button onclick="search()" class="search-btn" style='font-size: 10px; padding:8px' >✔</button>
+                </form>
+              </div>
+              <div id="searchResultContainer">
+                  {% for row in items %}
+                  <div class='search-info' onclick="showPatientInfo('{{row.idx}}')">
+                    <div>{{row.idx}}</div>
+                    <div>{{row.name}}</div>
+                    <div>{{row.age}}</div>
+                  </div>
+                  {% endfor %}
+              </div> <!-- 검색 결과를 표시할 위치 -->
+
+            </td> <!-- A2~B2 -->
+          </div>
+
+          <div class="info">
+            <td colspan="5" rowspan="6" class="shadow">
+              <div style="padding: 0 10px;">
+                <div class="info-container">
+                <!-- patient_info.html 삽입 되는 부분-->
+                </div>
+<!--                <div id='cell' style="padding: 0 10px;">-->
+<!--                <div><p>메모</p></div>-->
+<!--                <div class="memo-container" id='cellText' contentEditable="true"></div>-->
+<!--                </div>-->
+              </div>
+            </td>
+          </div>
+          <td colspan="2"> <!-- H2~I5 -->
+            <a class='bigBtn' onclick="sendDataToServer()">접수</a>
+                          <!--  onklick 말고 xray 페이지로 넘어가는 링크거는걸로 바꿔야됨 -->
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <a href = 'register/' class='bigBtn' onclick="sendDataToServer()">신규등록</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+<div id="infoContainer">
+</div>
+  <div class="page-footer">
+    <hr>
+    서울시 강남구 도산대로 197, 파라머스빌딩 301,302호 연세서울병원
+    <br>tel)02.2569.8915&nbsp;&nbsp;fax)02.2569.8916&nbsp;&nbsp;e-mail)thdcksdml980@naver.com
+    <br>2023 copyright ©yngkyng
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+  //검색창 기능//
+  function search() {
+    var keyword = document.getElementById('searchInput').value;
+
+    // 검색 결과를 표시할 요소 생성
+    var searchResult = document.createElement('p');
+    searchResult.textContent = '검색 결과: ' + keyword;
+
+    // 결과를 표시할 위치에 요소 추가
+    var resultContainer = document.getElementById('searchResultContainer');
+    resultContainer.appendChild(searchResult);
+  }
+
+
+  //메모창 사이즈 조절//
+  function adjustSize() {
+    var cellWidth = document.getElementById('cell').offsetWidth;
+    var cellHeight = document.getElementById('cell').offsetHeight;
+    var cellTextarea = document.getElementById('cellText');
+
+    cellTextarea.style.width = cellWidth + 'px';
+    cellTextarea.style.height = cellHeight + 'px';
+  }
+  window.addEventListener('DOMContentLoaded', adjustSize); // 페이지 로드 시 크기 조정
+
+
+  // 항목 클릭 이벤트 처리//
+  var a
+  function showPatientInfo(idx) {
+    a = idx; // 변수에 값 할당
+    document.cookie = "a=" + a;
+    $.ajax({
+        "url": 'patient_info?idx='+ idx,
+        "success":function(res){
+            console.log(res);
+            $(".info-container").html(res);
+            //console.log('success');
+        }
+    });
+
+
+    // AJAX 요청 예시
+    /*
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          var patientInfo = JSON.parse(xhr.responseText);
+            console.log('patient:'+patientInfo);
+          // 정보 출력을 위한 HTML 문자열 생성
+          var infoHTML = `
+            <div class="info-container">
+               <p>나이</p>
+               <p>${patient.name}</p>
+            </div>
+            <div class="info-container">
+               <p>나이</p>
+               <p>${patient.age}</p>
+            </div>
+            <!-- 추가 정보를 여기에 추가할 수 있습니다. -->
+          `;
+
+          // 정보를 출력할 요소에 HTML 문자열 삽입
+          var infoContainer = document.getElementById('infoContainer');
+          infoContainer.innerHTML = infoHTML;
+        } else {
+          alert('Failed to fetch patient information');
+        }
+      }
+    };
+
+    // 서버로 요청을 보내는 URL 설정
+    var url = '/?idx='+ idx; // 서버의 API 엔드포인트에 맞게 URL 수정 필요
+    xhr.open('GET', url);
+    xhr.send();
+      */
+  }
+
+  var idx = 1;  // 가져올 환자의 고유한 식별자
+  showPatientInfo(idx);
+
+  //신규 등록 누르면 DB로 정보 넘기기//
+  console.log(a)
+  function sendDataToServer() {
+    location.href="receipt?idx="+a;
+
+
+  }
+</script>

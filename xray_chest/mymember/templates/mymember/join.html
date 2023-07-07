@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="/static/css/login.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <div class="actions">
+  </div>
+</div>
+
+<div class="modal">
+  <div class="content">
+    <form method="post" action="/mymember/join">
+        <a href="/" data-target="login" class="nav login modal">Log In</a>
+        <a href="/mymember/join" data-target="register" class="nav register modal active">Register</a>
+
+        {% csrf_token %}
+        <label for="email">Email</label>
+        <input id="email" type="email"  name="email"/>
+        <label for='name'>Name</label>
+        <input id="name"  name="name"/>
+
+        <label for="username">Username</label>
+        <input id="username" name="userid">
+        <label for="password">Password</label>
+        <input id="password" type="password" name="passwd">
+
+        <span style="color:red;">{{msg}}</span>
+
+        <button type="submit">
+        <span class="register">Register</span>
+        </button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+

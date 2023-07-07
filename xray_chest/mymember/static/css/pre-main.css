@@ -1,0 +1,79 @@
+a {
+    cursor:pointer;
+    display:inline-block;
+}
+
+body {
+    font-family: 'Open Sans', Sans-serif;
+    font-size: 18px;
+    color:#333;
+    background:#333;
+    padding:0;
+    margin:0;
+}
+
+.container {
+    background:#d7d7d7;
+    height:100vh;
+    width:100vw;
+    position:relative;
+    transition:.3s all ease-in-out;
+    box-shadow: 0 0 5vh rgba(0,0,0,.1);
+}
+
+div.modal {
+    position:absolute;
+    padding: 4em;
+    background:#293040;
+    color:white;
+    top:10%;
+    left:25%;
+    /* 화면에서 어긋나면 top, left로 위치 조정하기 */
+    transition: .3s all ease-in-out;
+    min-width:300px;
+    font-size:14px;
+    border-radius:0;
+    max-height:100vh;
+    max-width:100vw;
+    overflow:auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+}
+
+.content {
+    max-height:45em;
+    overflow:hidden;
+}
+
+/* 내부 */
+.name{
+    color: #E2BC97;
+    font-size: xxx-large;
+}
+
+.btn-container{
+    height: 300px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 10px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#E2BC97;
+    border-radius: 0.5rem;
+    height:120px;
+    padding: 10px;
+    color:white;
+    text-decoration:none;
+    text-align: center;
+    font-weight: 700;
+    font-size:1.3em;
+}
+
+.button:hover{
+    color:#293040;
+    background-color:whitesmoke;
+}

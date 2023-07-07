@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Effusion</title>
+<style>
+body {
+    font-family: 'Open Sans', Sans-serif;
+    font-size: 18px;
+    color:#333;
+    background:#333;
+    padding:0;
+    margin:0;
+}
+
+.container {
+    background:#d7d7d7;
+    height:100vh;
+    width:100vw;
+    position:relative;
+    transition:.3s all ease-in-out;
+    box-shadow: 0 0 5vh rgba(0,0,0,.1);
+}
+.modal {
+    position:absolute;
+    padding: 4em;
+    background:#293040;
+    color:#888;
+    top:10%;
+    left:25%;
+    /* 화면에서 어긋나면 top, left로 위치 조정하기 */
+    transition: .3s all ease-in-out;
+    min-width:300px;
+    font-size:14px;
+    border-radius:0;
+    max-height:100vh;
+    max-width:100vw;
+    overflow:auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+}
+
+.content {
+    max-height:45em;
+    overflow:hidden;
+}
+
+.disease{
+    color:white;
+    font-size:2em;
+    font-weight:700;
+}
+.pred{
+color:white;
+    font-size:1.4em;
+}
+.result{
+color:#E2BC97;
+font-size:1.7em;
+}
+</style>
+</head>
+<body>
+<div class="container"></div>
+<div class="modal">
+    <div class="content">
+        <p class="disease">Effusion</p>
+
+        {% if prediction %}
+        <p class="pred">Prediction: <a class="result">{{ prediction }}</a></p>
+        {% endif %}
+        <p></p>
+    </div>
+</div>
+</body>
+</html>
